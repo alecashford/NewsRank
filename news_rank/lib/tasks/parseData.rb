@@ -1,7 +1,6 @@
 require 'json'
 require 'HTTParty'
 
-
 class RedditParser
   @@scores = []
 
@@ -17,7 +16,7 @@ class RedditParser
 
 end
 
-subreddits = ['cats', 'dataisbeautiful']
+subreddits = ["Art","AskReddit","askscience","aww","books","creepy","dataisbeautiful","DIY","Documentaries","EarthPorn","explainlikeimfive","Fitness","food","funny","Futurology","gadgets","gaming","GetMotivated","gifs","history","IAmA","InternetIsBeautiful","Jokes","LifeProTips","listentothis","mildlyinteresting","movies","Music","news","nosleep","nottheonion","OldSchoolCool","personalfinance","philosophy","photoshopbattles","pics","science","Showerthoughts","space","sports","television","tifu","todayilearned","TwoXChromosomes","UpliftingNews","videos","worldnews","WritingPrompts"]
 
 subreddits.each do |subreddit|
   reddit_response = HTTParty.get("http://www.reddit.com/r/#{subreddit}/.json")
