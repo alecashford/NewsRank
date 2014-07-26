@@ -61,5 +61,5 @@ module SubredditParser
 end
 
 
-SubredditParser.save_list('lib/tasks/subreddits.csv')
+# SubredditParser.save_list('lib/tasks/subreddits.csv')
 # p SubredditParser.parse_all_urls
