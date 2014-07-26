@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 20140724230829) do
     t.integer  "fb_like_count"
     t.integer  "fb_comment_count"
     t.integer  "twitter_count"
-    t.integer  "reddit_score"
-    t.integer  "reddit_comment_count"
     t.integer  "calculated_rank"
     t.datetime "created_at"
     t.datetime "updated_at"
