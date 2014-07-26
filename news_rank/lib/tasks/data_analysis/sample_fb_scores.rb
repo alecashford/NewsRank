@@ -1022,9 +1022,13 @@ facebook_scores=[{"share_count"=>40, "like_count"=>23, "comment_count"=>50, "tot
 {"share_count"=>376, "like_count"=>452, "comment_count"=>23, "total_count"=>851, "click_count"=>0, "commentsbox_count"=>0},
 {"share_count"=>112, "like_count"=>256, "comment_count"=>24, "total_count"=>392, "click_count"=>0, "commentsbox_count"=>0}]
 
+# facebook_scores.each do |score|
+#   score.each do |k,v|
+#     puts k +" "+ v.to_s
+#   end
+#   puts "_____________"
+# end
+
 facebook_scores.each do |score|
-  score.each do |k,v|
-    puts k +" "+ v.to_s
-  end
-  puts "_____________"
+  puts score["total_count"]
 end

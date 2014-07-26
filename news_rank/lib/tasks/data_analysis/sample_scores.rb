@@ -1026,5 +1026,5 @@ scores=[{"count"=>101, "url"=>"http://www.usatoday.com/story/sports/nfl/seahawks
 {"count"=>7, "url"=>"http://excitingmag.com/guy-jumps-cliff-lands-next-great-white-shark-heart-stopping/"}]
 
 scores.each do |score|
-  puts score['count']
+  puts score['url']
 end
