@@ -15,5 +15,8 @@ Rails.application.routes.draw do
 
   root :to => 'pages#index'
 
+  get "auth", to: "pages#auth"
+
+  post "authorized", to: "pages#authorized"
 
 end
