@@ -10,6 +10,8 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// CR if it is not necessary to have ordering on modules and controllers - then just let them be required by require tree - Also move ng-infinite and angular to the vendor/assests/js folder - for 3rd party code
+
 //= require jquery
 //= require jquery_ujs
 //= require angular

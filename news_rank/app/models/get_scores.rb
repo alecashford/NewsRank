@@ -7,9 +7,11 @@ module GetScores
       @scores = {}
       loop_through_scores
     end
+# CR total shouldn't be working as currently written
     def total
       @likes + @comments + @shares
     end
+
     def loop_through_scores
       @fb_response.each do |article|
         url = article["url"]

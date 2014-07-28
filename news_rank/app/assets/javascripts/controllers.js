@@ -1,3 +1,6 @@
+
+// CR move method definition outside of method call.  Use named functions. Move towards implementing Models (or at a minimum Modules)
+
 app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
 
@@ -5,23 +8,11 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     $scope.tiles = []
 
-    var getArticles = function() {
-        $http({
-            method: 'GET',
-            url: '/articles'
-        }).success(function(data) {
-            var merged = []
-            merged = merged.concat.apply(merged, data)
-            for (i = 0; i < merged.length; i++) {
-                $scope.tiles.push(merged[i])
-            }
-            // currently defaults to sort by published date
-            initializePage("published")
-        })
-    }
-    
+
     getArticles()
-    
+
+
+
     var initializePage = function(sortBy) {
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {

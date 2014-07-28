@@ -471,7 +471,7 @@ input[type="password"] {
 input[type="email"]:focus,
 input[type="password"]:focus {
   outline: none;
-} 
+}
 
 .button-sign-in {
   background: #f67a6e;

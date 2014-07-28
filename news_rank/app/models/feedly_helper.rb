@@ -1,3 +1,5 @@
+# CR I think you should have one Feedly class that wraps all API calls.
+
 include GetScores
 
 class FeedlyHelper
@@ -50,6 +52,7 @@ class FeedlyHelper
     if self.stream
       feed = Feed.find_by feedly_feed_id: @feed_id
       self.stream["items"].each do |item|
+        # CR this should be on the Article model
         a = Article.new
         a.title = item["title"]
         a.feed_id = feed.id
@@ -64,6 +67,7 @@ class FeedlyHelper
           a.visual_height = item["visual"]["height"]
           a.visual_width = item["visual"]["width"]
         end
+
         a.twitter_count=GetScores::TwitterFetcher.new(a.site_url).count
         a.reddit_score=GetScores::RedditFetcher.new(a.site_url).score
         fb_scores = GetScores::FacebookFetcher.new(a.site_url).scores

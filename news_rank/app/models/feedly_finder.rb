@@ -7,10 +7,11 @@ class FeedlyFinder
     begin
       HTTParty.get("http://cloud.feedly.com/v3/search/feeds?q=#{@search}")
     rescue
+      # CR - this is REALLY bad - remove silent fails!
       #something here if not successful
     end
   end
-
+# CR - verify if you are using this method - if not delete - if so refactor
   def results
     results = []
     self.find["results"].each do |feed|
