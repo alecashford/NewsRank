@@ -14,7 +14,7 @@ TWITTER_WEIGHT = 0.3
     fb_like_score = normalize_fb_like_count
     # fb_comment_score = normalize_fb_comment_count
     final_score = REDDIT_WEIGHT*reddit_score+FB_SHARE_WEIGHT*fb_share_score+FB_LIKE_WEIGHT*fb_like_score+TWITTER_WEIGHT*twitter_score
-    self.calculated_rank = final_score
+    self.calculated_rank = 1000*final_score*time_decay
   end
 
   # private
@@ -65,11 +65,11 @@ TWITTER_WEIGHT = 0.3
     Math.log(raw_val/p_val, base)/r_val
   end
 
-  def time_decay_factor
+  def time_decay
     time_published = Time.at(self.published).to_datetime
     now = DateTime.now
     hours_since = (now - time_published)*24*60
-    decay = 1/(hours_since+2)
+    decay = 1/(hours_since+2)**1.5
   end
 
 end
