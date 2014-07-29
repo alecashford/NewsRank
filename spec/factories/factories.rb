@@ -16,17 +16,22 @@ FactoryGirl.define do
     feedly_feed_id {"feed/http://feeds.engadget.com/weblogsinc/engadget"}
     num_subscribers {427}
 
-    factory :feed_with_users do
-      after(:create) do |feed|
-        create_list(:user, 5, feeds: feed)
-      end
-    end
+    # factory :feed_with_users do
+    #   after(:create) do |feed|
+    #     create_list(:user, 5, feeds: feed)
+    #   end
+    # end
 
-    factory :feed_with_articles do
-      after(:create) do |feed|
-        create_list(:article, 20, feeds: feed)
-      end
-    end
+    # factory :feed_with_articles do
+    #   after(:create) do |feed|
+    #     create_list(:article, 20, feeds: feed)
+    #   end
+    # end
+  end
+
+  factory :subscription do
+    user
+    feed
   end
 
   factory :article do
