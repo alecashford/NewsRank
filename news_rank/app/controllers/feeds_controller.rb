@@ -8,8 +8,9 @@ class FeedsController < ApplicationController
 
   #Currently this leaves the following fields blank:
   # number of subscribers, description, topics
-  def from_opml(file)
-    f = File.open(file)
+  def from_opml
+    p "made it"
+    f = File.open(params)
     doc = Nokogiri::XML(f)
     doc.xpath("//outline").each do |x|
       unless x['xmlUrl']==nil

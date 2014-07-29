@@ -57,6 +57,18 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     //     // $http.post('/feeds/from_url', { url: $scope.newFeedUrl })
     // }
 
+    $scope.addFile = function() {
+        console.log('hey')
+        var stagedFile = document.getElementById('file').files[0]
+        var reader = new FileReader()
+        reader.onloadend = function(e) {
+            var data = e.target.result
+            $http.post('/feeds/from_opml', {data: reader.readAsBinaryString(stagedFile) })
+        }
+        // reader.readAsBinaryString(stagedFile)
+    }
+
+
     $scope.loadMoreTiles = function() {
         var lastTile = $scope.activeTiles.length
         for (i = 0; i < 9; i++) {
