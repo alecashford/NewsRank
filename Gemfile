@@ -4,6 +4,8 @@ gem 'devise'
 gem 'httparty'
 gem 'awesome_print'
 gem 'nokogiri'
+gem 'unicorn'
+
 
 gem 'angularjs-rails'
 
@@ -45,6 +47,8 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
 end
+
+gem 'rails_12factor', group: :production
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
