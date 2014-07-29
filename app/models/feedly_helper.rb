@@ -51,7 +51,6 @@ class FeedlyHelper
       feed = Feed.find_by feedly_feed_id: @feed_id
       self.stream["items"].each do |item|
         article = Article.new
-        p article
         article.add_article(item, feed)
       end
       true

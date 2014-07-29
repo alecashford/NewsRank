@@ -12,11 +12,11 @@ describe Article do
     expect(article.feed.id).to eq(test_feed.id)
     end
 
-    describe "#add_article" do
-      it "adds an article to the database" do
+    describe "#add_article"
+      it "adds an article to the database"
 
-        expect(article.count).to
 
-    end
+
+
   end
 end

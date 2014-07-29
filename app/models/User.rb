@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   def articles
     articles = []
     self.feeds.each do |feed|
-      # feed.update_feed updating feed is slowing everything down
+      feed.update_feed
       articles << feed.articles
     end
     articles.to_json

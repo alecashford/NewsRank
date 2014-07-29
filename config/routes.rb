@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   get "articles", to: "articles#index"
 
   get "feeds", to: "feeds#index"
-  post "feeds/from_opml", to: "feeds#from_opml"
-  post "feeds/from_url", to: "feeds#from_url"
+  post "feeds/create", to: "feeds#create"
   post "feeds/search", to: "feeds#search"
   delete "subscriptions/:id", to: "subscriptions#destroy"
 
