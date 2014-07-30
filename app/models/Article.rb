@@ -1,11 +1,10 @@
 class Article < ActiveRecord::Base
- belongs_to :feed
- validates :canonical_url, uniqueness: true
+  belongs_to :feed
+  validates :canonical_url, uniqueness: true
 
-def add_article(item, feed)
-  # debugger
-     self.title = item["title"]
-     self.feed_id = feed.id
+  def add_article(item, feed)
+    self.title = item["title"]
+    self.feed_id = feed.id
      self.feedly_id = item["origin"]["streamId"] # feedly feed/stream ID
      self.published = item["published"]
      self.author = item["author"]

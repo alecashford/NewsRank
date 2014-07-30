@@ -33,9 +33,9 @@ class FeedlyHelper
   # This gets timestamp of the last update of the feed by feedly
   def last_update
     if self.stream
-      return self.stream["updated"]
+      self.stream["updated"] / 1000
     else
-      return Time.now.to_i
+      Time.now.to_i
     end
   end
 

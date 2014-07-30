@@ -28,9 +28,16 @@ describe FeedsController do
 
     it "should not create a subscription if the user already has a subscription to the feed" do
       controller.stub(:current_user) { user }
-
+      #need to add a feed to the user - can't do with FactoryGirl build??
     end
 
+  end
+
+  describe '#search' do
+    it "should return JSON of feeds" do
+      #need to stub out API call HOW?
+      expect(response.header["Content-Type"]).to include "application/json"
+    end
   end
 end
 
