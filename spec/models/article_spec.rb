@@ -12,8 +12,7 @@ end
 describe "#add_article" do
   article = Article.new
   let(:feed) { FactoryGirl.build(:feed) }
-  it "adds an article to the database" do
-      item = {
+  item = {
                         "id" => "sHSGXxDz2U2mAoLEEsBjC3+jXmO/7KkWNzoP8ntZ0NM=_1478447ede6:274fd24:a1131c96",
                "fingerprint" => "c22554d4",
                   "originId" => "http://www.engadget.com/2014/07/29/playdate-the-last-of-us-remastered/",
@@ -54,7 +53,12 @@ describe "#add_article" do
             "engagementRate" => 0.56
         }
 
+  it "adds an article to the database" do
       expect{article.add_article(item, feed)}.to change{Article.count}.by(1)
+    end
+
+    it "updates the article facebook scores" do
+      expect{article.fb_share_count}.to be >= 0
     end
 
   end
