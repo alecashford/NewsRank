@@ -36,6 +36,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 #Heroku
 gem 'rails_12factor', group: :production
+gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails'
