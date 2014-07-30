@@ -4,12 +4,9 @@ class Feed < ActiveRecord::Base
   has_many :articles
   validates :feedly_feed_id, uniqueness: true
 
-def update_feed
-  helper = FeedlyHelper.new(self.feedly_feed_id)
-  updated = helper.last_update
-  if (Time.now.to_i * 1000) > (updated + 900000)
-    helper.add_to_db
+  def update_feed
+    helper = FeedlyHelper.new(self.feedly_feed_id)
+    helper.add_to_db if helper.last_update < 15.minutes.ago
   end
-end
 
 end
