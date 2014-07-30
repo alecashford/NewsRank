@@ -16,3 +16,5 @@ module GetScores
       HTTParty.get("http://api.facebook.com/restserver.php?method=links.getStats&format=json&urls=#{@url}")
     end
   end
+
+end

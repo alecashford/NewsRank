@@ -12,3 +12,4 @@ module GetScores
       tw_response = HTTParty.get("http://cdn.api.twitter.com/1/urls/count.json?url=#{@url}")
     end
   end
+end
