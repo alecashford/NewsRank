@@ -33,9 +33,9 @@ class FeedlyHelper
   # This gets timestamp of the last update of the feed by feedly
   def last_update
     if self.stream
-      return self.stream["updated"]
+      self.stream["updated"] / 1000
     else
-      return Time.now.to_i
+      Time.now.to_i
     end
   end
 
@@ -51,7 +51,6 @@ class FeedlyHelper
       feed = Feed.find_by feedly_feed_id: @feed_id
       self.stream["items"].each do |item|
         article = Article.new
-        p article
         article.add_article(item, feed)
       end
       true
