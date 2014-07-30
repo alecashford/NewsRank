@@ -5,7 +5,7 @@ class FeedsController < ApplicationController
 
   def index
     render json: current_user.feeds
-   end
+  end
 
   def create
     finder = FeedlyFinder.new(params[:url])
@@ -30,6 +30,11 @@ class FeedsController < ApplicationController
     head :success
   end
 
+  def destroy
+    feed=Feed.find(params[:id])
+    feed.destroy
+  end
+
   def search
     search = FeedlyFinder.new(URI::encode(params[:url]))
     result = search.find
@@ -39,4 +44,5 @@ class FeedsController < ApplicationController
     end
     render :json => to_return
   end
+
 end

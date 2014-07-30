@@ -4,6 +4,8 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     $scope.tiles = []
 
+    $scope.sortBy = "calculated_rank"
+
     var getArticles = function() {
         $http({
             method: 'GET',
@@ -15,13 +17,14 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
                 $scope.tiles.push(merged[i])
             }
             // currently defaults to sort by published date
-            initializePage("published")
+            $scope.initializePage($scope.sortBy)
         })
     }
 
+
     getArticles()
 
-    var initializePage = function(sortBy) {
+    $scope.initializePage = function(sortBy) {
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -34,23 +37,33 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         }
     }
 
+    var makeUsable = function(rawFloat) {
+        return parseInt(rawFloat * 100000000000000000)
+    }
+
     var sortFeed = function(sortMe, sortBy) {
         var spaceship = function(a, b) {
             if (a[sortBy] < b[sortBy]) {
-                return -1
+                return 1
             }
             else if (a[sortBy] > b[sortBy]) {
-                return 1
+                return -1
             }
             else {
                 return 0
             }
         }
-        sortMe = sortMe.sort(spaceship)
+        $scope.tiles = $scope.tiles.sort(spaceship)
+        if (sortBy == "calculated_rank") {
+            $scope.tiles.reverse()
+        }
     }
 
+
     $scope.addFeedFromUrl = function() {
-        $http.post('/feeds/create', { url: $scope.newFeedUrl })
+        $http.post('/feeds/create',
+        { url: $scope.newFeedUrl })
+        $scope.updateUserFeeds()
     }
 
     $scope.loadMoreTiles = function() {
@@ -69,18 +82,23 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         .success(function(data) {
             $scope.searchResults = data
         })
+        $('.button-subscribe').css({"display": "block"})
     }
 
     $scope.sortTimePublished = function(){
-        initializePage("published")
+        $scope.sortBy = "published"
+        $scope.initializePage($scope.sortBy)
+        // $scope.initializePage("$scope.sortBy")
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(0).addClass("active")
     }
 
     $scope.sortNewsRank= function(){
-        initializePage("calculated_rank")
+        $scope.sortBy = "calculated_rank"
+        $scope.initializePage($scope.sortBy)
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(1).addClass("active")
+        // console.log("hey")
     }
 
     $scope.checkedBoxes = []
@@ -89,21 +107,53 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         console.log($scope.checkedBoxes)
     }
 
-    $scope.toggleResults = function(url){
-        var found = $.inArray(url, $scope.checkedBoxes) > -1;
+    $scope.toggleResults = function(result){
+        var found = $.inArray(result.feedId, $scope.checkedBoxes) > -1;
         if (found) {
-            index = $scope.checkedBoxes.indexOf(url)
+            index = $scope.checkedBoxes.indexOf(result.feedId)
             $scope.checkedBoxes.splice(index, 1)
+            result.selected=false
         }
         else{
-            $scope.checkedBoxes.push(url)
+            $scope.checkedBoxes.push(result.feedId)
+            result.selected = true
         }
     }
 
     $scope.addFromSearch = function(){
         for (i = 0; i < $scope.checkedBoxes.length; i++){
-            $http.post('/feeds/create', {url: $scope.checkedBoxes[i]})
+            $http.post('/feeds/create',
+            {url: $scope.checkedBoxes[i]})
         }
+        $scope.updateUserFeeds()
+    }
+
+    $scope.calculateAge = function(published) {
+        age = new Date().getTime() - parseInt(published)
+        return parseInt(age/60000)
+    }
+
+    $scope.userFeeds = []
+
+    $scope.updateUserFeeds = function(){
+        $http({
+            method: 'GET',
+            url: '/feeds'
+        }).success(function(data) {
+            $scope.userFeeds = []
+            $scope.userFeeds = data
+        })
+    } // improve
+
+    $scope.deleteFeed = function(feed_id){
+        $http.delete('/feeds/delete/'+feed_id)
+        $scope.updateUserFeeds()
+    }
+
+    $scope.reset = function() {
+        $("input[type=text], textarea").val("")
+        $('#fade, .popup:visible').fadeOut('normal', function() { $('#fade, .popup:visible').css('display','none')})
+        $scope.initializePage($scope.sortBy)
     }
 
 }]);

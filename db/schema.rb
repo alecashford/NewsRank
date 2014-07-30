@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726180302) do
+ActiveRecord::Schema.define(version: 20140729201348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20140726180302) do
     t.integer  "twitter_count"
     t.integer  "reddit_score"
     t.integer  "reddit_comment_count"
-    t.integer  "calculated_rank"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "calculated_rank"
   end
 
   create_table "feeds", force: true do |t|
