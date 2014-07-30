@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
 
     articles = []
     feeds.each do |feed|
-      feed.update_feed
+      # feed.update_feed #replaced with background job
+      FeedWorker.perform_async(feed.id)
       articles << feed.articles
     end
     articles.to_json

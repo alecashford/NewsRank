@@ -6,7 +6,13 @@ class Feed < ActiveRecord::Base
 
   def update_feed
     helper = FeedlyHelper.new(self.feedly_feed_id)
-    helper.add_to_db #if helper.last_update < 15.minutes.ago
+    if helper.stream
+      helper.stream["items"].each do |item|
+        article = Article.new
+        article.add_article(item, self)
+      end
+      true
+    end
   end
 
 end
