@@ -16,7 +16,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             for (i = 0; i < merged.length; i++) {
                 $scope.tiles.push(merged[i])
             }
-            // currently defaults to sort by published date
             $scope.initializePage($scope.sortBy)
         })
     }
@@ -37,7 +36,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         }
     }
 
-    var makeUsable = function(rawFloat) {
+    $scope.makeUsable = function(rawFloat) {
         return parseInt(rawFloat * 100000000000000000)
     }
 
@@ -88,7 +87,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.sortTimePublished = function(){
         $scope.sortBy = "published"
         $scope.initializePage($scope.sortBy)
-        // $scope.initializePage("$scope.sortBy")
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(0).addClass("active")
     }
@@ -128,9 +126,35 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.updateUserFeeds()
     }
 
-    $scope.calculateAge = function(published) {
-        age = new Date().getTime() - parseInt(published)
-        return parseInt(age/60000)
+    $scope.toHour = function(published) {
+        var age = new Date().getTime() - parseInt(published)
+        var min = parseInt(age/60000)
+        if (min < 60) {
+            return min + "m"
+        }
+        else {
+            hours = parseInt(min / 60)
+            minutes = min % 60
+            if (minutes == 0) {
+                return hours + "h"
+            }
+            else {
+                return hours + "h " + minutes + "m"
+            }
+        }
+    }
+
+    $scope.imgHelper = function(tile) {
+        console.log(tile.visual_url)
+        if (tile.visual_url == null) {
+            return "http://i.imgur.com/JFZ8pp4.jpg"
+        }
+        else if (tile.visual_url.substring(0, 7) == "http://") {
+            return tile.visual_url
+        }
+        else {
+            return "http://i.imgur.com/JFZ8pp4.jpg"
+        }
     }
 
     $scope.userFeeds = []
@@ -143,7 +167,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             $scope.userFeeds = []
             $scope.userFeeds = data
         })
-    } // improve
+    }
 
     $scope.deleteFeed = function(feed_id){
         $http.delete('/feeds/delete/'+feed_id)
@@ -154,6 +178,9 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $("input[type=text], textarea").val("")
         $('#fade, .popup:visible').fadeOut('normal', function() { $('#fade, .popup:visible').css('display','none')})
         $scope.initializePage($scope.sortBy)
+        $scope.searchResults = []
+        $('.button-subscribe').css('display','none');
+        $('.suggestions').css('display','none');
     }
 
 }]);

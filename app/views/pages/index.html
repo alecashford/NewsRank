@@ -82,12 +82,13 @@
 <div class="article-list" infinite-scroll="loadMoreTiles()">
   <ul class="scrollable">
     <li ng-repeat="tile in activeTiles">
-      <a ng-href="{{tile.canonical_url}}" class="item-box" back-img="{{tile.visual_url}}">
+      <a ng-href="{{tile.canonical_url}}" class="item-box" back-img="{{imgHelper(tile)}}">
         <div class="item-box-title">
           <span>
             <div class="title-text">{{tile.title}}</div>
             <div class="source-text">{{tile.site_url}}</div>
-            <div class="age">{{calculateAge(tile.published)}}</div>
+            <div class="age">{{toHour(tile.published)}}</div>
+            <!-- <div class="age">{{tile.calculated_rank}}</div> -->
           </span>
         </div>
       </a>
@@ -107,8 +108,8 @@
     </div>
     <div class="box-right">
       <span class="bb-label">SORT BY:</span>
-      <span class="bb active" ng-click="sortTimePublished()">TIME PUBLISHED</span>
-      <span class="bb" ng-click="sortNewsRank()">NEWS RANK</span>
+      <span class="bb" ng-click="sortTimePublished()">TIME PUBLISHED</span>
+      <span class="bb active" ng-click="sortNewsRank()">NEWS RANK</span>
     </div>
   </div>
 
