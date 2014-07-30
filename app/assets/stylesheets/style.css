@@ -568,7 +568,7 @@ input[type="password"] {
 input[type="email"]:focus,
 input[type="password"]:focus {
   outline: none;
-}
+} 
 
 .button-subscribe,
 .button-sign-in {
@@ -636,4 +636,45 @@ input[type="password"]:focus {
   -webkit-box-sizing: border-box;
   z-index:1002;
   overflow: auto;
+}
+
+/* FrontPage */
+
+.frontpage {
+  background: url("http://31.media.tumblr.com/d83b99e22981d5e58e2bd74ed2494087/tumblr_n4ef3ynCZP1st5lhmo1_1280.jpg") no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.frontpage .wrapper {
+  text-align: center;
+  font-family: 'Roboto Slab';
+}
+
+.frontpage h1 {
+  font-size: 12em;
+  margin-bottom: 0px;
+}
+
+.frontpage h3 {
+  font-size: 2.5em;
+  font-weight: 300;
+  margin-top: 0px;
+}
+
+#frontpage-stripe {
+  display: block;
+  background-color: #41CAC0;
+  height: 3px
+}
+
+#frontpage-header {
+  display: block;
+  background-color: #fff;
+  height: 200px
+}
+
+#frontpage-teams {
+  background-color: #41CAC0;
+  height: 200px
 }
