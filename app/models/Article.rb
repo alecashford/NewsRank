@@ -14,10 +14,10 @@ class Article < ActiveRecord::Base
     self.canonical_url = item["alternate"][0]["href"] # permalink
     self.summary       = item["summary"]["content"] # this is HTML
 
-    item["visual"].tap do |visual|
-      self.visual_url    = visual["url"]
-      self.visual_height = visual["height"]
-      self.visual_width  = visual["width"]
+    if item["visual"]
+      self.visual_url    = item["visual"]["url"]
+      self.visual_height = item["visual"]["height"]
+      self.visual_width  = item["visual"]["width"]
     end
 
     twitter_fetcher  = GetScores::TwitterFetcher.new(canonical_url)
