@@ -7,8 +7,9 @@ class User < ActiveRecord::Base
   has_many :feeds, through: :subscriptions
 
   def articles
+
     articles = []
-    self.feeds.each do |feed|
+    feeds.each do |feed|
       feed.update_feed
       articles << feed.articles
     end

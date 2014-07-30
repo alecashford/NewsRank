@@ -1,6 +1,5 @@
 app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
-
     $scope.activeTiles = []
 
     $scope.tiles = []
@@ -19,10 +18,11 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             initializePage("published")
         })
     }
-    
+
     getArticles()
-    
+
     var initializePage = function(sortBy) {
+        $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
             var minimumCount = $scope.tiles.length
@@ -50,12 +50,8 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.addFeedFromUrl = function() {
-        $http.post('/feeds/from_url', { url: $scope.newFeedUrl })
+        $http.post('/feeds/create', { url: $scope.newFeedUrl })
     }
-
-    // $scope.addFeedFromOpml = function() {
-    //     // $http.post('/feeds/from_url', { url: $scope.newFeedUrl })
-    // }
 
     $scope.loadMoreTiles = function() {
         var lastTile = $scope.activeTiles.length
@@ -72,30 +68,42 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $http.post('/feeds/search', { url: $scope.searchTerm })
         .success(function(data) {
             $scope.searchResults = data
-            console.log($scope.searchResults)
         })
     }
 
+    $scope.sortTimePublished = function(){
+        initializePage("published")
+        $(".box-right").find(".bb").removeClass("active")
+        $(".box-right").find(".bb").eq(0).addClass("active")
+    }
 
+    $scope.sortNewsRank= function(){
+        initializePage("calculated_rank")
+        $(".box-right").find(".bb").removeClass("active")
+        $(".box-right").find(".bb").eq(1).addClass("active")
+    }
 
+    $scope.checkedBoxes = []
 
+    $scope.log = function(){
+        console.log($scope.checkedBoxes)
+    }
 
+    $scope.toggleResults = function(url){
+        var found = $.inArray(url, $scope.checkedBoxes) > -1;
+        if (found) {
+            index = $scope.checkedBoxes.indexOf(url)
+            $scope.checkedBoxes.splice(index, 1)
+        }
+        else{
+            $scope.checkedBoxes.push(url)
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $scope.addFromSearch = function(){
+        for (i = 0; i < $scope.checkedBoxes.length; i++){
+            $http.post('/feeds/create', {url: $scope.checkedBoxes[i]})
+        }
+    }
 
 }]);
