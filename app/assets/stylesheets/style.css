@@ -506,7 +506,7 @@ a {
   display: inline-block;
   background-color: red;
   padding: 10px 15px;
-  margin: 0px 5px;
+  margin: 5px;
   background-color: #656C7E;
   border-radius: 20px;
 }
@@ -677,4 +677,16 @@ input[type="password"]:focus {
 #frontpage-teams {
   background-color: #41CAC0;
   height: 200px
+}
+
+/* Welcome Helper */
+#welcome-helper h3 {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 0;
+  line-height: 2.0em;
+}
+
+#welcome-helper .suggestions {
+  display: block;
 }
