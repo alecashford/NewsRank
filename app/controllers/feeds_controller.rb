@@ -51,6 +51,6 @@ class FeedsController < ApplicationController
       p "feed id #{feed.id}"
      FeedWorker.perform_async(feed.id)
     end
-    head :success
+    render nothing: true
   end
 end
