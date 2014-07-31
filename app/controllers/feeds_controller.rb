@@ -27,7 +27,7 @@ class FeedsController < ApplicationController
     current_user.feeds << feed
     helper = FeedlyHelper.new(feed.feedly_feed_id)
     helper.add_to_db
-    head :success
+    render nothing: true
   end
 
   def destroy

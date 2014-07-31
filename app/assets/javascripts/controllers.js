@@ -25,6 +25,9 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     getArticles()
 
     $scope.initializePage = function(sortBy) {
+        if ($scope.tiles.length == 0) {
+            $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
+        }
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -137,7 +140,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             $http.post('/feeds/create',
             {url: $scope.checkedBoxes[i]})
             .success(function() {
-                debugger
                 console.log("Called back from addFromSearch")
                 $scope.resetAll()
                 $scope.updateUserFeeds()
