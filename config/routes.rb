@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   root :to => 'pages#index'
 
   get "welcome", to: "pages#welcome"
-  # require 'sidekiq/web'
-  # mount Sidekiq::Web => '/sidekiq'
+
 
 end
