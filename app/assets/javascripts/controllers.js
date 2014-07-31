@@ -7,7 +7,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.sortBy = "calculated_rank"
 
     $scope.getArticles = function() {
-        console.log("hey")
         $http({
             method: 'GET',
             url: '/articles'
@@ -107,10 +106,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.checkedBoxes = []
-
-    $scope.log = function(){
-        console.log($scope.checkedBoxes)
-    }
 
     $scope.toggleResults = function(result){
         var found = $.inArray(result.feedId, $scope.checkedBoxes) > -1;
