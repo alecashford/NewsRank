@@ -23,6 +23,15 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     getArticles()
 
+    var updateFeeds = function(){
+        $http({
+            method: 'GET',
+            url: '/update_feeds'
+        })
+    }
+    setInterval(updateFeeds, 300000)
+    setInterval(getArticles, 300000)
+
     $scope.initializePage = function(sortBy) {
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)

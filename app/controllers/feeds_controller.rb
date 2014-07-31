@@ -45,4 +45,11 @@ class FeedsController < ApplicationController
     render :json => to_return
   end
 
+  def update_feeds
+    feeds = current_user.feeds
+    feeds.each do |feed|
+     FeedWorker.perform_async(feed.id)
+    end
+    head :success
+  end
 end
