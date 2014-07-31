@@ -5,15 +5,15 @@
         <div class="search"><i class="fa fa-search"></i>Search or Add Feeds</div>
       </div>
       <div class="sidebar-header">MENU</div>
-      <div id="link-my-feeds" class="menu-item">
+<!--       <div id="link-my-feeds" class="menu-item">
         <div class="menu-icon"><i class="fa fa-star"></i></div>
         <div class="menu-text">My Feeds</div>
-      </div>
-
+      </div> -->
+<!-- 
       <div id="link-add-feeds" class="menu-item">
         <div class="menu-icon"><i class="fa fa-camera"></i></div>
         <div class="menu-text">Add Feeds (temp)</div>
-      </div>
+      </div> -->
        <div id="link-manage-feeds" class="menu-item">
         <div class="menu-icon"><i class="fa fa-pencil-square-o"></i></div>
         <div class="menu-text" ng-click="updateUserFeeds()">Manage Feeds</div>
@@ -21,6 +21,10 @@
 <!--       <div id="link-full-article" class="menu-item">
         <div class="menu-icon"><i class="fa fa-camera"></i></div>
         <div class="menu-text">Full Article (temp)</div>
+      </div> -->
+<!--       <div id="link-welcome" class="menu-item">
+        <div class="menu-icon"><i class="fa fa-camera"></i></div>
+        <div class="menu-text">Welcome (temp)</div>
       </div> -->
 <!--       <div id="link-loader" class="menu-item">
         <div class="menu-icon"><i class="fa fa-spinner"></i></div>
@@ -98,14 +102,10 @@
 
   <div id="bottom-bar">
     <div class="box-left">
-      <span class="bb-label">FILTER:</span>
-      <span class="bb active">24 HOURS</span>
-      <span class="bb">7 DAYS</span>
-      <span class="bb">14 DAYS</span>
     </div>
-    <div class="box-middle">
+<!--     <div class="box-middle">
       <i class="fa fa-cog"></i>
-    </div>
+    </div> -->
     <div class="box-right">
       <span class="bb-label">SORT BY:</span>
       <span class="bb" ng-click="sortTimePublished()">TIME PUBLISHED</span>
@@ -171,7 +171,7 @@
       <div class="search-bar-wrapper">
         <i class="fa fa-search"></i>
         <form ng-submit="search()">
-          <input id="search-bar" type="text" name="query" placeholder="Enter Your Search" ng-model="searchTerm">
+          <input id="search-bar" type="text" name="query" placeholder="Search (enter keywords or a URL)" ng-model="searchTerm">
         </form>
       </div>
       <form>
@@ -183,14 +183,56 @@
             <td><span class="search-results-articles">1234</span> Articles Weekly</td>
           </tr>
         </table>
-        <button class="button-subscribe" ng-click="addFromSearch(); reset()">Subscribe</button>
+        <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
       </form>
-      <div class="suggestions">
+<!--       <div class="suggestions">
         <h3>You may also like</h3>
         <div class="search-results-similar"><a href="#">First</a></div>
         <div class="search-results-similar"><a href="#">Second</a></div>
         <div class="search-results-similar"><a href="#">Third</a></div>
+      </div> -->
+    </div>
+  </div>
+
+  <div id="welcome-helper" class="popup">
+    <h2 class="popup-heading">Welcome to NewsRank</h2>
+    <div class="popup-content-wrapper">
+      <h3>Get started by searching and adding topics to your stream.</h3>
+      <div class="search-bar-wrapper">
+        <i class="fa fa-search"></i>
+        <form ng-submit="search()">
+          <input id="search-bar" type="text" name="query" placeholder="Search for a website or blog you love to read" ng-model="searchTerm">
+        </form>
       </div>
+      
+      <form>
+        <table class="feed-wrapper">
+          <tr ng-repeat="result in searchResults" ng-click="toggleResults(result)" ng-class="{ selected: result.selected }">
+            <td><img src="http://pbs.twimg.com/profile_images/425948730/DF-Star-Logo_bigger.png"></td>
+            <td><span class="search-results-title">{{result.title}}</span></td>
+            <td><span class="search-results-subscribers">{{result.subscribers}}</span> Subscribers</td>
+            <td><span class="search-results-articles">1234</span> Articles Weekly</td>
+          </tr>
+        </table>
+        <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
+      </form>
+      <!-- <div class="suggestions">
+        <h3>Suggested Topics</h3>
+        <div class="search-results-similar"><a href="#">Technology</a></div>
+        <div class="search-results-similar"><a href="#">Business</a></div>
+        <div class="search-results-similar"><a href="#">Design</a></div>
+        <div class="search-results-similar"><a href="#">Marketing</a></div>
+        <div class="search-results-similar"><a href="#">Startups</a></div>
+        <div class="search-results-similar"><a href="#">Fashion</a></div>
+        <div class="search-results-similar"><a href="#">Do It Yourself</a></div>
+        <div class="search-results-similar"><a href="#">Cooking</a></div>
+        <div class="search-results-similar"><a href="#">News</a></div>
+        <div class="search-results-similar"><a href="#">Inspiration</a></div>
+        <div class="search-results-similar"><a href="#">Photography</a></div>
+        <div class="search-results-similar"><a href="#">Finance</a></div>
+        <div class="search-results-similar"><a href="#">Gaming</a></div>
+        <div class="search-results-similar"><a href="#">Film</a></div>
+      </div> -->
     </div>
   </div>
 

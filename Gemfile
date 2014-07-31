@@ -31,6 +31,12 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
+
+#Heroku
+gem 'rails_12factor', group: :production
+gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -46,6 +52,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
 end
+
+ruby "2.0.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

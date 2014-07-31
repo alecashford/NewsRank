@@ -27,7 +27,7 @@ class FeedsController < ApplicationController
     current_user.feeds << feed
     helper = FeedlyHelper.new(feed.feedly_feed_id)
     helper.add_to_db
-    head :success
+    render nothing: true
   end
 
   def destroy
@@ -45,4 +45,12 @@ class FeedsController < ApplicationController
     render :json => to_return
   end
 
+  def update_feeds
+    feeds = current_user.feeds
+    feeds.each do |feed|
+      p "feed id #{feed.id}"
+     FeedWorker.perform_async(feed.id)
+    end
+    render nothing: true
+  end
 end

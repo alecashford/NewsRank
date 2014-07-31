@@ -10,9 +10,17 @@ class User < ActiveRecord::Base
 
     articles = []
     feeds.each do |feed|
-      feed.update_feed
+      # feed.update_feed #replaced with background job
       articles << feed.articles
     end
     articles.to_json
   end
+
+
 end
+
+#methods to split this into pieces:
+#get existing articles - if no articles, get one from each feed
+#update articles - background job to update database
+#long poll from client to refresh the feed from database
+

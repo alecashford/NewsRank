@@ -11,6 +11,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             method: 'GET',
             url: '/articles'
         }).success(function(data) {
+            $scope.tiles = []
             var merged = []
             merged = merged.concat.apply(merged, data)
             for (i = 0; i < merged.length; i++) {
@@ -23,7 +24,19 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     getArticles()
 
+    var updateFeeds = function(){
+        $http({
+            method: 'GET',
+            url: 'feeds/update_feeds'
+        })
+    }
+    setInterval(updateFeeds, 300000)
+    setInterval(getArticles, 20000)
+
     $scope.initializePage = function(sortBy) {
+        if ($scope.tiles.length == 0) {
+            $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
+        }
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -62,7 +75,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.addFeedFromUrl = function() {
         $http.post('/feeds/create',
         { url: $scope.newFeedUrl })
-        $scope.updateUserFeeds()
+        .success($scope.updateUserFeeds())
     }
 
     $scope.loadMoreTiles = function() {
@@ -74,15 +87,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         }
     }
 
-    $scope.searchResults = []
-
-    $scope.search = function() {
-        $http.post('/feeds/search', { url: $scope.searchTerm })
-        .success(function(data) {
-            $scope.searchResults = data
-        })
-        $('.button-subscribe').css({"display": "block"})
-    }
 
     $scope.sortTimePublished = function(){
         $scope.sortBy = "published"
@@ -96,7 +100,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.initializePage($scope.sortBy)
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(1).addClass("active")
-        // console.log("hey")
     }
 
     $scope.checkedBoxes = []
@@ -118,10 +121,37 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         }
     }
 
+    $scope.searchResults = []
+
+    $scope.search = function() {
+        if ($scope.searchTerm.substring(0, 7) == "http://") {
+            $http.post('/feeds/create',
+            { url: $scope.searchTerm })
+            .success(function() {
+                $scope.resetAll()
+                $scope.updateUserFeeds()
+                // getArticles()
+            })
+        }
+        else {
+            $http.post('/feeds/search',
+            { url: $scope.searchTerm })
+            .success(function(data) {
+            $scope.searchResults = data
+            })
+            $('.button-subscribe').css({"display": "block"})
+        }
+    }
+
     $scope.addFromSearch = function(){
         for (i = 0; i < $scope.checkedBoxes.length; i++){
             $http.post('/feeds/create',
             {url: $scope.checkedBoxes[i]})
+            .success(function() {
+                $scope.resetAll()
+                $scope.updateUserFeeds()
+                getArticles()
+            })
         }
         $scope.updateUserFeeds()
     }
@@ -129,23 +159,27 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.toHour = function(published) {
         var age = new Date().getTime() - parseInt(published)
         var min = parseInt(age/60000)
+        var string = ""
         if (min < 60) {
-            return min + "m"
+            string = min + "m"
         }
         else {
             hours = parseInt(min / 60)
             minutes = min % 60
             if (minutes == 0) {
-                return hours + "h"
+                string = hours + "h"
             }
             else {
-                return hours + "h " + minutes + "m"
+                string = hours + "h " + minutes + "m"
             }
         }
+        if (min > 1440) {
+            string = parseInt(min/1440) + "d"
+        }
+        return string
     }
 
     $scope.imgHelper = function(tile) {
-        console.log(tile.visual_url)
         if (tile.visual_url == null) {
             return "http://i.imgur.com/JFZ8pp4.jpg"
         }
@@ -174,7 +208,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.updateUserFeeds()
     }
 
-    $scope.reset = function() {
+    $scope.resetAll = function() {
         $("input[type=text], textarea").val("")
         $('#fade, .popup:visible').fadeOut('normal', function() { $('#fade, .popup:visible').css('display','none')})
         $scope.initializePage($scope.sortBy)
