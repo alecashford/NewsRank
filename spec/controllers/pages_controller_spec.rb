@@ -13,7 +13,7 @@ describe PagesController do
     it "should redirect to login if user is not signed in" do
       controller.stub(:user_signed_in?) {false}
       get :index
-      expect(response).to redirect_to('/users/sign_in')
+      expect(response).to redirect_to('/welcome')
     end
   end
 
