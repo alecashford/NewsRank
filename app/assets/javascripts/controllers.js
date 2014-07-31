@@ -24,6 +24,15 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     getArticles()
 
+    var updateFeeds = function(){
+        $http({
+            method: 'GET',
+            url: 'feeds/update_feeds'
+        })
+    }
+    setInterval(updateFeeds, 300000)
+    setInterval(getArticles, 20000)
+
     $scope.initializePage = function(sortBy) {
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
@@ -88,7 +97,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.initializePage($scope.sortBy)
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(1).addClass("active")
-        // console.log("hey")
     }
 
     $scope.checkedBoxes = []
@@ -119,7 +127,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                getArticles()
+                // getArticles()
             })
         }
         else {
@@ -137,8 +145,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             $http.post('/feeds/create',
             {url: $scope.checkedBoxes[i]})
             .success(function() {
-                debugger
-                console.log("Called back from addFromSearch")
                 $scope.resetAll()
                 $scope.updateUserFeeds()
                 getArticles()
@@ -171,7 +177,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.imgHelper = function(tile) {
-        // console.log(tile.visual_url)
         if (tile.visual_url == null) {
             return "http://i.imgur.com/JFZ8pp4.jpg"
         }
