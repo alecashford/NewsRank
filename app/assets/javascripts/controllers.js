@@ -7,6 +7,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.sortBy = "calculated_rank"
 
     $scope.getArticles = function() {
+        console.log("hey")
         $http({
             method: 'GET',
             url: '/articles'
@@ -31,13 +32,12 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         })
     }
 
-    $(document).ready(function() {
-    if ($scope.tiles > 0) {
+    $scope.init = function() {
+        $scope.getArticles()
         setInterval(updateFeeds, 300000)
         setInterval($scope.updateUserFeeds, 10000)
         setInterval($scope.getArticles, 5000)
     }
-    })
 
 
     $scope.initializePage = function(sortBy) {
