@@ -47,8 +47,4 @@ describe FeedsController do
       end
     end
 
-    describe '#update_feeds' do
-      it "creates factory workers to update the database"
-    end
-
 end
