@@ -17,9 +17,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             for (i = 0; i < merged.length; i++) {
                 $scope.tiles.push(merged[i])
             }
-            if ($scope.tiles.length == 0) {
-                $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
-            }
             $scope.initializePage($scope.sortBy)
         })
     }
@@ -32,6 +29,9 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.init = function() {
+        if ($scope.tiles.length == 0) {
+            $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
+        }
         $scope.getArticles()
         setInterval(updateFeeds, 300000)
         setInterval($scope.updateUserFeeds, 10000)
