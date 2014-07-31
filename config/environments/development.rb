@@ -39,4 +39,5 @@ Rails.application.configure do
    #Devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  ENV["REDISTOGO_URL"]="redis://redistogo:a895eba09097008962f606537e1a2bb2@hoki.redistogo.com:9211/"
 end

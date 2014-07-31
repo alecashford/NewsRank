@@ -34,6 +34,10 @@ gem 'spring',        group: :development
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+#Heroku
+gem 'rails_12factor', group: :production
+gem 'unicorn'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -48,6 +52,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
 end
+
+ruby "2.0.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
