@@ -6,7 +6,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     $scope.sortBy = "calculated_rank"
 
-    var getArticles = function() {
+    $scope.getArticles = function() {
         $http({
             method: 'GET',
             url: '/articles'
@@ -17,12 +17,12 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             for (i = 0; i < merged.length; i++) {
                 $scope.tiles.push(merged[i])
             }
+            if ($scope.tiles.length == 0) {
+                $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
+            }
             $scope.initializePage($scope.sortBy)
         })
     }
-
-
-    getArticles()
 
     var updateFeeds = function(){
         $http({
@@ -30,13 +30,17 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             url: 'feeds/update_feeds'
         })
     }
-    setInterval(updateFeeds, 300000)
-    setInterval(getArticles, 20000)
+
+    $(document).ready(function() {
+    if ($scope.tiles > 0) {
+        setInterval(updateFeeds, 300000)
+        setInterval($scope.updateUserFeeds, 10000)
+        setInterval($scope.getArticles, 5000)
+    }
+    })
+
 
     $scope.initializePage = function(sortBy) {
-        if ($scope.tiles.length == 0) {
-            $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
-        }
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -130,7 +134,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                // getArticles()
+                // $scope.getArticles()
             })
         }
         else {
@@ -150,7 +154,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                getArticles()
+                $scope.getArticles()
             })
         }
         $scope.updateUserFeeds()
@@ -214,7 +218,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.initializePage($scope.sortBy)
         $scope.searchResults = []
         $('.button-subscribe').css('display','none');
-        $('.suggestions').css('display','none');
     }
 
 }]);
