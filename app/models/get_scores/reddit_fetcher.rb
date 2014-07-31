@@ -7,9 +7,6 @@ module GetScores
 
     def fetch
       response = HTTParty.get("http://www.reddit.com/api/info.json?url=#{@url}")
-
-
-      raise '' if response.status != 200
     rescue
         nil
     end
