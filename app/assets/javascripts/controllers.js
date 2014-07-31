@@ -41,10 +41,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
 
     $scope.initializePage = function(sortBy) {
-        // console.log($scope.tiles.length)
-        // if ($scope.tiles.length == 0) {
-        //     $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
-        // }
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -222,7 +218,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         $scope.initializePage($scope.sortBy)
         $scope.searchResults = []
         $('.button-subscribe').css('display','none');
-        // $('.suggestions').css('display','none');
     }
 
 }]);
