@@ -17,9 +17,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             for (i = 0; i < merged.length; i++) {
                 $scope.tiles.push(merged[i])
             }
-            if ($scope.tiles.length == 0) {
-                $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
-            }
             $scope.initializePage($scope.sortBy)
         })
     }
@@ -31,16 +28,37 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         })
     }
 
-    $(document).ready(function() {
-    if ($scope.tiles > 0) {
+    var firstInit = function() {
+        $http({
+            method: 'GET',
+            url: '/articles'
+        }).success(function(data) {
+            $scope.tiles = []
+            var merged = []
+            merged = merged.concat.apply(merged, data)
+            for (i = 0; i < merged.length; i++) {
+                $scope.tiles.push(merged[i])
+            }
+        if ($scope.tiles.length == 0) {
+            $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
+        }
+            $scope.initializePage($scope.sortBy)
+        })
+        
+    }
+
+    $scope.init = function() {
+        firstInit()
         setInterval(updateFeeds, 300000)
         setInterval($scope.updateUserFeeds, 10000)
         setInterval($scope.getArticles, 5000)
     }
-    })
 
 
     $scope.initializePage = function(sortBy) {
+        if ($scope.tiles.length > 0) {
+            $('#loader').css('display','none');
+        }
         $scope.activeTiles = []
         sortFeed($scope.tiles, sortBy)
         if ($scope.tiles.length < 30) {
@@ -107,10 +125,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.checkedBoxes = []
-
-    $scope.log = function(){
-        console.log($scope.checkedBoxes)
-    }
 
     $scope.toggleResults = function(result){
         var found = $.inArray(result.feedId, $scope.checkedBoxes) > -1;
@@ -181,6 +195,19 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             string = parseInt(min/1440) + "d"
         }
         return string
+    }
+
+    $scope.toInt = function(float) {
+        var num = parseInt(float)
+        if (num == 1) {
+            return num + " Article Weekly"
+        }
+        else if (num == 0) {
+            "Less Than 1 Article Weekly"
+        }
+        else {
+            return num + " Articles Weekly"
+        }
     }
 
     $scope.imgHelper = function(tile) {

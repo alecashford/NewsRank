@@ -1,4 +1,4 @@
-<div ng-init="getArticles()" ng-cloak>
+<div ng-init="init()" ng-cloak>
 <div class="sidebar">
     <div id="logo">NewsRank</div>
     <div class="menu-wrap">
@@ -87,7 +87,7 @@
 <div class="article-list" infinite-scroll="loadMoreTiles()">
   <ul class="scrollable">
     <li ng-repeat="tile in activeTiles">
-      <a ng-href="{{tile.canonical_url}}" class="item-box" back-img="{{imgHelper(tile)}}">
+      <a ng-href="{{tile.canonical_url}}" class="item-box" back-img="{{imgHelper(tile)}}" target="_blank">
         <div class="item-box-title">
           <span>
             <div class="title-text">{{tile.title}}</div>
@@ -181,7 +181,7 @@
             <td><img ng-src="{{result.avatar}}" onError="this.onerror=null;this.src=''"></td>
             <td><span class="search-results-title">{{result.title}}</span></td>
             <td><span class="search-results-subscribers">{{result.subscribers}}</span> Subscribers</td>
-            <td><span class="search-results-articles">{{result.velocity}}</span> Articles Weekly</td>
+            <td><span class="search-results-articles">{{toInt(result.velocity)}}</span></td>
           </tr>
         </table>
         <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
@@ -212,10 +212,10 @@
             <td><img ng-src="{{result.avatar}}" onError="this.onerror=null;this.src=''"></td>
             <td><span class="search-results-title">{{result.title}}</span></td>
             <td><span class="search-results-subscribers">{{result.subscribers}}</span> Subscribers</td>
-            <td><span class="search-results-articles">{{result.velocity}}</span> Articles Weekly</td>
+            <td><span class="search-results-articles">{{toInt(result.velocity)}}</span></td>
           </tr>
         </table>
-        <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
+        <button class="button-subscribe" id="welcome-button" ng-click="addFromSearch(); resetAll()">Subscribe</button>
       </form>
       <!-- <div class="suggestions">
         <h3>Suggested Topics</h3>
