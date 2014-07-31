@@ -13,13 +13,6 @@ require 'spec_helper'
     it "returns an array of articles as json" do
       user.articles { is_expected.to respond_with_content_type(:json) }
     end
-
-    it "updates the users feeds" do
-      feed_one = Feed.new
-      user.feeds << feed_one
-      feed_one.should_receive(:update_feed)
-      user.articles
-    end
   end
 
 end

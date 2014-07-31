@@ -7,7 +7,6 @@ describe Article do
     it {should validate_uniqueness_of :canonical_url}
     it {should belong_to :feed}
     end
-end
 
 describe "#add_article" do
   article = Article.new
@@ -54,12 +53,20 @@ describe "#add_article" do
         }
 
   it "adds an article to the database" do
+    stub_request(:get, "http://api.facebook.com/restserver.php?format=json&method=links.getStats&urls=http://feedproxy.google.com/~r/weblogsinc/engadget/~3/Noviv75s6JI/").
+         to_return(:status => 200, :body => '[{"url":"http:\/\/feedproxy.google.com\/~r\/weblogsinc\/engadget\/~3\/Noviv75s6JI\/","normalized_url":"http:\/\/feedproxy.google.com\/~r\/weblogsinc\/engadget\/~3\/Noviv75s6JI\/","share_count":39,"like_count":49,"comment_count":6,"total_count":94,"click_count":0,"comments_fbid":null,"commentsbox_count":0}]', :headers => {})
+    stub_request(:get, "http://www.reddit.com/api/info.json?url=http://feedproxy.google.com/~r/weblogsinc/engadget/~3/Noviv75s6JI/").
+         to_return(:status => 200, :body => '{"kind": "Listing", "data": {"modhash": "", "children": [], "after": null, "before": null}}', :headers => {:content_type => 'application/json'})
+    stub_request(:get, "http://cdn.api.twitter.com/1/urls/count.json?url=http://feedproxy.google.com/~r/weblogsinc/engadget/~3/Noviv75s6JI/").
+         to_return(:status => 200, :body => '{"count":0,"url":"http:\/\/feedproxy.google.com\/~r\/weblogsinc\/engadget\/~3\/Noviv75s6JI\/"}', :headers => {:content_type => 'application/json'})
       expect{article.add_article(item, feed)}.to change{Article.count}.by(1)
     end
 
     it "updates the article facebook scores" do
-      expect{article.fb_share_count}.to be >= 0
+      expect(article.fb_share_count).to be >= 0
     end
 
   end
+end
+
 
