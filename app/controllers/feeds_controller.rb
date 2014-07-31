@@ -32,7 +32,7 @@ class FeedsController < ApplicationController
 
   def destroy
     feed=Feed.find(params[:id])
-    feed.destroy
+    current_user.feeds.destroy(feed)
   end
 
   def search
@@ -48,7 +48,6 @@ class FeedsController < ApplicationController
   def update_feeds
     feeds = current_user.feeds
     feeds.each do |feed|
-      p "feed id #{feed.id}"
      FeedWorker.perform_async(feed.id)
     end
     render nothing: true
