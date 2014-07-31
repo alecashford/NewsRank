@@ -19,6 +19,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             }
             $scope.initializePage($scope.sortBy)
         })
+        console.log("fire in the hole")
     }
 
 
@@ -31,7 +32,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         })
     }
     setInterval(updateFeeds, 300000)
-    setInterval(getArticles, 300000)
+    setInterval(getArticles, 30000)
 
     $scope.initializePage = function(sortBy) {
         $scope.activeTiles = []
@@ -128,7 +129,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                getArticles()
+                // getArticles()
             })
         }
         else {

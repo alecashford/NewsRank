@@ -7,12 +7,12 @@ class Article < ActiveRecord::Base
   def add_article(item, feed)
     self.title         = item["title"]
     self.feed_id       = feed.id
-    self.feedly_id     = item["origin"]["streamId"] # feedly feed/stream ID
-    self.site_url      = item["origin"]["htmlUrl"]
+    self.feedly_id     = item["origin"]["streamId"] if item["origin"] # feedly feed/stream ID
+    self.site_url      = item["origin"]["htmlUrl"] if item["origin"]
     self.published     = item["published"]
     self.author        = item["author"]
-    self.canonical_url = item["alternate"][0]["href"] # permalink
-    self.summary       = item["summary"]["content"] # this is HTML
+    self.canonical_url = item["alternate"][0]["href"] if item["alternate"]# permalink
+    self.summary       = item["summary"]["content"] if item["summary"]# this is HTML
 
     if item["visual"]
       self.visual_url    = item["visual"]["url"]
