@@ -28,11 +28,27 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         })
     }
 
-    $scope.init = function() {
+    var firstInit = function() {
+        $http({
+            method: 'GET',
+            url: '/articles'
+        }).success(function(data) {
+            $scope.tiles = []
+            var merged = []
+            merged = merged.concat.apply(merged, data)
+            for (i = 0; i < merged.length; i++) {
+                $scope.tiles.push(merged[i])
+            }
         if ($scope.tiles.length == 0) {
             $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
         }
-        $scope.getArticles()
+            $scope.initializePage($scope.sortBy)
+        })
+        
+    }
+
+    $scope.init = function() {
+        firstInit()
         setInterval(updateFeeds, 300000)
         setInterval($scope.updateUserFeeds, 10000)
         setInterval($scope.getArticles, 5000)
