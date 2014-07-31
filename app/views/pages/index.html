@@ -1,3 +1,4 @@
+<div ng-init="getArticles()" ng-cloak>
 <div class="sidebar">
     <div id="logo">NewsRank</div>
     <div class="menu-wrap">
@@ -177,10 +178,10 @@
       <form>
         <table class="feed-wrapper">
           <tr ng-repeat="result in searchResults" ng-click="toggleResults(result)" ng-class="{ selected: result.selected }">
-            <td><img src="http://pbs.twimg.com/profile_images/425948730/DF-Star-Logo_bigger.png"></td>
+            <td><img ng-src="{{result.avatar}}" onError="this.onerror=null;this.src=''"></td>
             <td><span class="search-results-title">{{result.title}}</span></td>
             <td><span class="search-results-subscribers">{{result.subscribers}}</span> Subscribers</td>
-            <td><span class="search-results-articles">1234</span> Articles Weekly</td>
+            <td><span class="search-results-articles">{{result.velocity}}</span> Articles Weekly</td>
           </tr>
         </table>
         <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
@@ -208,10 +209,10 @@
       <form>
         <table class="feed-wrapper">
           <tr ng-repeat="result in searchResults" ng-click="toggleResults(result)" ng-class="{ selected: result.selected }">
-            <td><img src="http://pbs.twimg.com/profile_images/425948730/DF-Star-Logo_bigger.png"></td>
+            <td><img ng-src="{{result.avatar}}" onError="this.onerror=null;this.src=''"></td>
             <td><span class="search-results-title">{{result.title}}</span></td>
             <td><span class="search-results-subscribers">{{result.subscribers}}</span> Subscribers</td>
-            <td><span class="search-results-articles">1234</span> Articles Weekly</td>
+            <td><span class="search-results-articles">{{result.velocity}}</span> Articles Weekly</td>
           </tr>
         </table>
         <button class="button-subscribe" ng-click="addFromSearch(); resetAll()">Subscribe</button>
@@ -250,7 +251,8 @@
     </div>
   </div>
 
-  <div id="fade" class="black_overlay"></div>
+  <div id="fade" class="black_overlay" ng-click="resetAll()"></div>
+  </div>
 
   <!-- DANGER! DO NOT UNCOMMENT BELOW THIS LINE! BAD SHIT WILL HAPPEN! -->
   <!-- // <script src="http://gravityscript.googlecode.com/svn/trunk/gravityscript.js"></script> -->
