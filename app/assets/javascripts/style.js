@@ -45,6 +45,11 @@ $(document).ready(function() {
     $('#loader').css('display','block');
   });
 
+  //welcome button loader
+  $("#welcome-button").on("click", function(){
+    $('#loader').css('display','block');
+  });
+
   // Dark Overlay
   $("#fade").on("click", function(){
     $('#fade, .popup:visible').fadeOut('normal', function() { $('#fade, .popup:visible').css('display','none')});
