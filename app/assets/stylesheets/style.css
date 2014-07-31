@@ -459,6 +459,10 @@ a {
   background-color: rgba(65, 202, 192, 0.5);
 }
 
+.feed-wrapper .selected:hover {
+  background-color: rgba(65, 202, 192, 1);
+}
+
 .feed-wrapper td {
   padding: 5px;
   vertical-align: middle;

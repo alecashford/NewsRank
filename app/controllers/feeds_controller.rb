@@ -41,7 +41,7 @@ class FeedsController < ApplicationController
     result = search.find
     to_return = []
     result["results"].each do |item|
-      to_return << {title: item["title"], subscribers: item["subscribers"], feedId: item["feedId"], url: item["website"]}
+      to_return << {title: item["title"], subscribers: item["subscribers"], feedId: item["feedId"], url: item["website"], velocity: item["velocity"], avatar: item["visualUrl"]}
     end
     render :json => to_return
   end
