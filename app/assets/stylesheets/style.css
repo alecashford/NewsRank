@@ -25,14 +25,17 @@ a {
   font-size: 12px;
 }
 
-.search-wrapper {
-  background-color: #191B1F;
+/*.search-wrapper {
+  background-color: #fff;
+  width: 200px;
+  color: #333;
   padding: 5px 0px;
   font-size: 16px;
   cursor: pointer;
-}
+  border-radius: 20px;
+}*/
 
-.search {
+/*.search {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -40,12 +43,12 @@ a {
   border-radius: 3px;
   padding: 8px 10px;
   -webkit-box-sizing: border-box;
-  color: #fff;
-}
+  color: #ccc;
+}*/
 
-.search i{
+/*.search i{
   margin-right: 15px;
-}
+}*/
 
 .scrollable {
   width: 100%;
@@ -73,14 +76,13 @@ a {
 }
 
 .article-list {
-  left: 230px;
-  width: auto;
+  width: 100%;
   height: 100%;
   position: fixed;
   overflow: hidden;
-  right: 0;
   color: #000;
   min-width: 1000px;
+  text-align: center;
 }
 
 .item-box {
@@ -125,16 +127,22 @@ a {
   margin: 0px;
 }
 
+#top-bar {
+  width: 100%;
+  display: table;
+  background-color: #41cac0;
+  height: 60px;
+  vertical-align: middle;
+}
+
 #logo {
   font-family: 'Roboto Slab';
   display: block;
   width: 100%;
-  height: 80px;
-  background-color: #41cac0;
   color: #fff;
   font-size: 32px;
   text-align: center;
-  line-height: 74px;
+  line-height: 60px;
 }
 
 .menu-wrap {
@@ -252,6 +260,25 @@ a {
   margin: 0px 5px;
 }
 
+#top-bar .bb {
+  background-color: #fff;
+  color: #656C7E;
+  border-radius: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#top-bar .bb:hover {
+  background-color: #ecf9f8;
+  cursor: pointer;
+}
+
+#top-bar .bb i {
+  padding-right: 12px;
+}
+
 .bb:hover {
   background-color: #656C7E;
   border-radius: 20px;
@@ -262,17 +289,20 @@ a {
   border-radius: 20px;
 }
 
+#top-bar .box-left,
 #bottom-bar .box-left {
   display: table-cell;
-  width: 42%;
+  width: 40%;
+  vertical-align: middle
 }
 
+#top-bar .box-middle,
 #bottom-bar .box-middle {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
   font-size: 24px;
-  width: 16%;
+  width: 10%;
 }
 
 #bottom-bar .box-middle i {
@@ -298,11 +328,12 @@ a {
 #bottom-bar .box-middle i:hover {
   background-color: #41cac0;
 }
-
+#top-bar .box-right,
 #bottom-bar .box-right {
   display: table-cell;
-  width: 42%;
+  width: 40%;
   text-align: right;
+  vertical-align: middle;
 }
 
 .black_overlay{
@@ -616,11 +647,15 @@ input[type="password"]:focus {
 .full-article-html {
   font-size: 20px;
   line-height: 40px;
-  font-family: serif;
+  /*font-family: serif;*/
 }
 
 .popup-article-wrapper {
   padding: 60px;
+}
+
+.popup-article-wrapper img{
+  width: 80%;
 }
 
 #full-article {
@@ -693,4 +728,13 @@ input[type="password"]:focus {
 
 #welcome-helper .suggestions {
   display: block;
+}
+
+.box-left a {
+  color: #fff;
+}
+
+.fa-trash-o {
+  cursor: pointer;
+  font-size: 1.5em;
 }
