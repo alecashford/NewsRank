@@ -8,9 +8,10 @@ class FeedsController < ApplicationController
   end
 
   def create
+    p params
     finder = FeedlyFinder.new(params[:url])
     result = finder.find
-    feed = Feed.find_by_feedly_feed_id(params[:feedId])
+    feed = Feed.find_by_feedly_feed_id(params[:url])
     if !feed
       feed = Feed.new
         feed.url = result["results"][0]["website"]
@@ -33,6 +34,7 @@ class FeedsController < ApplicationController
   def destroy
     feed=Feed.find(params[:id])
     current_user.feeds.destroy(feed)
+    render nothing: true
   end
 
   def search
