@@ -1,88 +1,37 @@
 <div ng-init="init()" ng-cloak>
-<div class="sidebar">
-    <div id="logo">NewsRank</div>
-    <div class="menu-wrap">
-      <div class="search-wrapper">
-        <div class="search"><i class="fa fa-search"></i>Search or Add Feeds</div>
-      </div>
-      <div class="sidebar-header">MENU</div>
-<!--       <div id="link-my-feeds" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-star"></i></div>
-        <div class="menu-text">My Feeds</div>
-      </div> -->
-<!-- 
-      <div id="link-add-feeds" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Add Feeds (temp)</div>
-      </div> -->
-       <div id="link-manage-feeds" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-pencil-square-o"></i></div>
-        <div class="menu-text" ng-click="updateUserFeeds()">Manage Feeds</div>
-      </div>
-<!--       <div id="link-full-article" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Full Article (temp)</div>
-      </div> -->
-<!--       <div id="link-welcome" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Welcome (temp)</div>
-      </div> -->
-<!--       <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-spinner"></i></div>
-        <div class="menu-text">Loading (temp)</div>
-      </div> -->
-      <%= link_to(destroy_user_session_path, method: :delete, class: 'menu-item') do %>
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Sign Out</div>
-      <% end %>
-    <!-- <div id="category"> -->
-      <!-- <div class="sidebar-header">RECOMMENDED TOPICS</div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Tech</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Business</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Design</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Marketing</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Startups</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Fashion</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">Cooking</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-camera"></i></div>
-        <div class="menu-text">News</div>
-      </div>
-      <div id="link-loader" class="menu-item">
-        <div class="menu-icon"><i class="fa fa-gamepad"></i></div>
-        <div class="menu-text">Gaming</div>
-      </div> -->
-    <!-- </div> -->
-      <!-- </div> -->
-      <!-- <div class="item technology">Technology</div>
-      <div class="item business">Business</div>
-      <div class="item design">Design</div>
-      <div class="item startups">Startups</div>
-      <div class="item fashion">Fashion</div>
-      <div class="item gaming">Gaming</div> -->
+<!-- <div class="sidebar">
+  <div id="logo">NewsRank</div>
+  <div class="menu-wrap">
+    <div class="search-wrapper">
+      <div class="search"><i class="fa fa-search"></i>Search or Add Feeds</div>
     </div>
+    <div class="sidebar-header">MENU</div>
+    <div id="link-manage-feeds" class="menu-item">
+      <div class="menu-icon"><i class="fa fa-pencil-square-o"></i></div>
+      <div class="menu-text" ng-click="updateUserFeeds()">Manage Feeds</div>
+    </div>
+    <%= link_to(destroy_user_session_path, method: :delete, class: 'menu-item') do %>
+      <div class="menu-icon"><i class="fa fa-camera"></i></div>
+      <div class="menu-text">Sign Out</div>
+    <% end %>
   </div>
+</div>
+ -->
+
+<div id="top-bar">
+  <div class="box-left">
+    <span id="about-link" class="bb icon"><i class="fa fa-info"></i>About</span>
+  </div>
+  <div class="box-middle">
+    <div id="logo">NewsRank</div>
+  </div>
+  <div class="box-right">
+    <!-- <div class="search-wrapper">
+      <div class="search"><i class="fa fa-search"></i>Search or Add Feeds</div>
+    </div> -->
+    <span class="bb search"><i class="fa fa-search"></i>Search or Add Feeds</span>
+  </div>
+</div>
 
 <div class="article-list" infinite-scroll="loadMoreTiles()">
   <ul class="scrollable">
@@ -103,10 +52,11 @@
 
   <div id="bottom-bar">
     <div class="box-left">
+      <%= link_to(destroy_user_session_path, method: :delete) do %><span class="bb">SIGN OUT</span><% end %>
     </div>
-<!--     <div class="box-middle">
+    <div class="box-middle">
       <i class="fa fa-cog"></i>
-    </div> -->
+    </div>
     <div class="box-right">
       <span class="bb-label">SORT BY:</span>
       <span class="bb" ng-click="sortTimePublished()">TIME PUBLISHED</span>
@@ -120,9 +70,7 @@
       <table>
         <tr ng-repeat="feed in userFeeds">
           <td><i class="fa fa-trash-o" ng-click="deleteFeed(feed.id)"></i></td>
-          <td>{{feed.name}}</td>
-          <td>{{feed.description}}</td>
-          <td>{{feed.topics}}</td>
+          <td class="search-results-title">{{feed.name}}</td>
         </tr>
       </table>
     </div>
@@ -241,18 +189,27 @@
     <img src="http://www.365gr.com/images/preloader_transparent.gif">
   </div>
 
-  <div id="full-article" class="popup">
+  <div id="about-popup" class="popup">
+    <h2 class="popup-heading">About NewsRank</h2>
     <div class="popup-article-wrapper">
-      <h1>Diffbot's New Product API Teaches Robots to Shop Online</h1>
-      <h3>John Davi on Wed, 31 Jul 2013 08:00:00 GMT</h3>
+      <center><img src="http://i.imgur.com/FOMZGOO.jpg">
+      <h3>The NewsRank Team, Dev Bootcamp Chorus Frogs 2014</h3></center>
       <div class="full-article-html">
-        More than a few eyebrows were raised when talk surfaced of an HTC One for Windows Phone. How close would it be to the Android original? Would it bring anything new to the table? And what's the name, for that matter? Thankfully, sources for Engadget are happy to answer a few questions. For a start, they tell us that the device is tentatively called the \"One (M8) for Windows.\" Yeah, that's not exactly going to roll off the tongue -- the device's codename, W8, is considerably more elegant.\nOther details we've received mostly corroborate what we've seen from @evleaks, with one surprise. In addition to the previously hinted-at presence of features from the Android-based One, like BoomSound speakers and the depth-sensing Duo camera, the One for Windows will also support voice over LTE -- Windows Phone users shouldn't have to wait long to try high-quality calls for themselves. It's not clear whether or not the device will ship with VoLTE out of the box, but Windows Phone 8.1's GDR1 revision (aka Update 1) should add support if it's not ready on launch. The release isn't far away, either. Our tipsters back earlier claims that the Microsoft-powered One is expected to reach at least Verizon during the third quarter, or no later than the end of September.
+        <p>NewsRank is a project made as a Dev Bootcamp final project. We wanted an app that would help people read their favorite blogs, easier. We used a bunch of APIs ranging from the Feedly API, Reddit, Facebook, Twitter and deployed it to Heroku! We had 6 days to build this entire site. As a challenge to the team, we wanted each team-member to dive into what they were passionate about. Britney and her passion for big-data-analytics, Alec with AngularJS, Ronald with UI/UX CSS, Kris with Tests and Queing, Andrew with Backend Rails/APIs.</p> 
+        <p>The end result is something we are trully proud of. After 6 x 15-hour-days, we present to you our final DBC project, NewsRank.</p>
+        <h3>Team Members</h3>
+        <ul>
+          <li>Ronald Ishak - Team Lead</li>
+          <li>Alec Ashford</li>
+          <li>Andrew Koines</li>
+          <li>Britney Van Valkenberg</li>
+          <li>Kris Shanks</li>
+        </ul>
+        <p>Fork our project on <a href="https://github.com/chorus-frogs-2014/newsrank">Github</a>!</p>
+
       </div>
     </div>
   </div>
 
   <div id="fade" class="black_overlay" ng-click="resetAll()"></div>
   </div>
-
-  <!-- DANGER! DO NOT UNCOMMENT BELOW THIS LINE! BAD SHIT WILL HAPPEN! -->
-  <!-- // <script src="http://gravityscript.googlecode.com/svn/trunk/gravityscript.js"></script> -->

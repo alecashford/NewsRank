@@ -27,7 +27,7 @@ $(document).ready(function() {
 
   // My Settings
   $(".box-middle").on("click", function(){
-    $('#fade, #my-settings').fadeIn('normal', function() { $('#fade, #my-settings').css('display','block')});
+    $('#fade, #my-feeds').fadeIn('normal', function() { $('#fade, #my-feeds').css('display','block')});
   });
 
   // Full Article
@@ -39,6 +39,12 @@ $(document).ready(function() {
   $("#link-welcome").on("click", function(){
     $('#fade, #welcome-helper').fadeIn('normal', function() { $('#fade, #welcome-helper').css('display','block')});
   });
+
+    // About
+  $("#about-link").on("click", function(){
+    $('#fade, #about-popup').fadeIn('normal', function() { $('#fade, #about-popup').css('display','block')});
+  });
+
 
   // Loader
   $("#link-loader").on("click", function(){
