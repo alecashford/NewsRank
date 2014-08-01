@@ -14,11 +14,29 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             $scope.tiles = []
             var merged = []
             merged = merged.concat.apply(merged, data)
+            // merged = sortFeed(merged, $scope.sortBy)
             for (i = 0; i < merged.length; i++) {
                 $scope.tiles.push(merged[i])
+                sortFeed($scope.tiles, $scope.sortBy)
             }
-            $scope.initializePage($scope.sortBy)
+            debugger
+            
         })
+    }
+
+
+    $scope.reloadWORefresh = function() {
+        if ($scope.tiles.length > 0) {
+            $('#loader').css('display','none');
+        }
+        if ($scope.activeTiles.length == 0) {
+            $scope.activeTiles = $scope.tiles
+        }
+        else {
+            sortFeed($scope.tiles, $scope.sortBy)
+            var newPage = $scope.tiles.slice(0, $scope.activeTiles.length)
+            $scope.activeTiles = newPage
+        }
     }
 
     var updateFeeds = function(){
@@ -51,7 +69,8 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
         firstInit()
         setInterval(updateFeeds, 300000)
         setInterval($scope.updateUserFeeds, 10000)
-        setInterval($scope.getArticles, 5000)
+        setInterval($scope.getArticles, 10000)
+        setInterval($scope.reloadWORefresh, 5000)
     }
 
 
@@ -112,14 +131,16 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
 
     $scope.sortTimePublished = function(){
         $scope.sortBy = "published"
-        $scope.initializePage($scope.sortBy)
+        sortFeed($scope.tiles, $scope.sortBy)
+        $scope.reloadWORefresh()
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(0).addClass("active")
     }
 
     $scope.sortNewsRank= function(){
         $scope.sortBy = "calculated_rank"
-        $scope.initializePage($scope.sortBy)
+        sortFeed($scope.tiles, $scope.sortBy)
+        $scope.reloadWORefresh()
         $(".box-right").find(".bb").removeClass("active")
         $(".box-right").find(".bb").eq(1).addClass("active")
     }
@@ -148,7 +169,6 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                // $scope.getArticles()
             })
         }
         else {
@@ -168,7 +188,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
             .success(function() {
                 $scope.resetAll()
                 $scope.updateUserFeeds()
-                $scope.getArticles()
+                // $scope.getArticles()
             })
         }
         $scope.updateUserFeeds()
@@ -242,7 +262,7 @@ app.controller('MainController', ["$scope", "$http", function($scope, $http) {
     $scope.resetAll = function() {
         $("input[type=text], textarea").val("")
         $('#fade, .popup:visible').fadeOut('normal', function() { $('#fade, .popup:visible').css('display','none')})
-        $scope.initializePage($scope.sortBy)
+        $scope.reloadWORefresh()
         $scope.searchResults = []
         $('.button-subscribe').css('display','none');
     }
