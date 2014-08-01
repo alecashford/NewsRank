@@ -34,6 +34,7 @@ class FeedsController < ApplicationController
   def destroy
     feed=Feed.find(params[:id])
     current_user.feeds.destroy(feed)
+    render nothing: true
   end
 
   def search

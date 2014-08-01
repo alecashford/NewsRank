@@ -2,6 +2,7 @@ class FeedWorker
   include Sidekiq::Worker
   def perform(feed_id)
     feed = Feed.find(feed_id)
+
    helper = FeedlyHelper.new(feed.feedly_feed_id)
     if helper.stream
       helper.stream["items"].each do |item|

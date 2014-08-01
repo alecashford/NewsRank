@@ -41,9 +41,9 @@ class Article < ActiveRecord::Base
 
 ########## Scoring Algorithm
 
-REDDIT_WEIGHT = 0.4
+REDDIT_WEIGHT = 0.2
 FB_LIKE_WEIGHT = 0.1
-FB_SHARE_WEIGHT = 0.2
+FB_SHARE_WEIGHT = 0.4
 TWITTER_WEIGHT = 0.3
 
   def calculate_rank
